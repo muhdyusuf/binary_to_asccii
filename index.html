@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Binary to ASCII Converter</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background-color: #f0f4ff;
+    
+    }
+    .container{
+        max-width: 800px;
+        margin: auto;
+    }
+    textarea, input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-family: monospace;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      align-self: start;
+    }
+    button:hover {
+      background-color: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+
+        <h1>Binary to ASCII Converter</h1>
+        
+        <label for="binaryInput">Enter binary (8-bit per character, separated by spaces):</label>
+        <textarea id="binaryInput" rows="4" placeholder="01110100 01101001 01100001..."></textarea>
+        
+        <button onclick="convertToAscii()">Convert</button>
+        
+        <h3>Output:</h3>
+        <input type="text" id="asciiOutput" readonly>
+    </div>
+
+  <script>
+    function convertToAscii() {
+      const binaryInput = document.getElementById("binaryInput").value.trim();
+      const binaryArray = binaryInput.split(" ");
+      try {
+        const ascii = binaryArray.map(bin => {
+          if (!/^[01]{8}$/.test(bin)) throw new Error(`Invalid binary: ${bin}`);
+          return String.fromCharCode(parseInt(bin, 2));
+        }).join("");
+        document.getElementById("asciiOutput").value = ascii;
+      } catch (error) {
+        alert("Error: " + error.message);
+        document.getElementById("asciiOutput").value = "";
+      }
+    }
+  </script>
+
+</body>
+</html>
